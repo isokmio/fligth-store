@@ -9,18 +9,18 @@ namespace Station.Persistence.Database.Configurations
     {
         public StationConfiguration(EntityTypeBuilder<StationNode> builder) 
         {
-            builder.HasIndex(x => x.Code);
+            builder.HasIndex(x => x.StationNodeId);
             builder.Property(x => x.Code).IsRequired();
             builder.Property(x => x.Name).IsRequired();
 
             List<StationNode> nodes = new List<StationNode>();
-            int index = 0;
+            int index = 1;
 
             foreach(KeyValuePair<string, string> node in MasterCollection.AirportIata)
             {
                 nodes.Add(new StationNode
                 {
-                    StationId = ++index,
+                    StationNodeId = index++,
                     Code = node.Key,
                     Name = node.Value
                 });

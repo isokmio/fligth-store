@@ -12,9 +12,9 @@ namespace Station.Api.Controllers
     [Route("api/stations")]
     public class StationController : Controller
     {
-        private StationNodeQueryService _stationNodeQueryService;
+        private IStationNodeQueryService _stationNodeQueryService;
 
-        private StationController(StationNodeQueryService stationNodeQueryService) 
+        public StationController(IStationNodeQueryService stationNodeQueryService) 
         {
             _stationNodeQueryService = stationNodeQueryService;
         }

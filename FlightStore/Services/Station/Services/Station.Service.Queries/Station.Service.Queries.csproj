@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Service.Common.Mapper\Service.Common.Mapper.csproj" />
+    <ProjectReference Include="..\..\..\Common\Service.Common.Paging\Service.Common.Paging.csproj" />
     <ProjectReference Include="..\..\Persistence\Station.Persistence.Database\Station.Persistence.Database.csproj" />
   </ItemGroup>
 

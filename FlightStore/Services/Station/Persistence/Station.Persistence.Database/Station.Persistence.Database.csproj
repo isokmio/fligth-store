@@ -5,13 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Service.Common.Mapper\Service.Common.Mapper.csproj" />
     <ProjectReference Include="..\..\..\Common\Service.Common.MasterCollection\Service.Common.MasterCollection.csproj" />
-    <ProjectReference Include="..\..\..\Common\Service.Common.Paging\Service.Common.Paging.csproj" />
     <ProjectReference Include="..\..\Model\Station.Model\Station.Model.csproj" />
   </ItemGroup>
 

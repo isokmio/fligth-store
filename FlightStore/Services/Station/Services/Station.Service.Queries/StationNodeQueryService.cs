@@ -38,7 +38,7 @@ namespace Station.Service.Queries
         public async Task<StationNodeDto> GetByIdAsync(int id)
         {
             var collection = await _context.Stations
-                .SingleAsync(x => x.StationId == id);
+                .SingleAsync(x => x.StationNodeId == id);
 
             return collection.MapTo<StationNodeDto>();
         }

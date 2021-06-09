@@ -15,7 +15,7 @@ namespace Station.Persistence.Database
         {
             base.OnModelCreating(builder);
 
-            builder.HasDefaultSchema("Master");
+            builder.HasDefaultSchema("Station");
 
             new StationConfiguration(builder.Entity<StationNode>());
         }

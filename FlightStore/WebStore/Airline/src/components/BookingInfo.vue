@@ -25,9 +25,8 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
     import { STAGES } from '../constant';
-    const { SEARCHING, BOOKING } = STAGES;
+    const { SEARCHING } = STAGES;
 
     export default {
         name: 'FilterOptions',
