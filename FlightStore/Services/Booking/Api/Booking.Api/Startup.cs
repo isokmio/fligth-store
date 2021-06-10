@@ -23,8 +23,9 @@ namespace Booking.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddDbContext<ApplicationDbContext>(options => {
-                options.UseSqlServer("Server=tcp:flightstore.database.windows.net,1433;Initial Catalog=FlightServer;Persist Security Info=False;User ID=isokmio;Password=.Mio4heavenly;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;", x => x.MigrationsHistoryTable("__EFMigrationsHistory", "Booking"));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsHistoryTable("__EFMigrationsHistory", "Booking"));
             });
 
             services.AddTransient<IBookingQueryService, BookingQueryService>();
@@ -48,7 +49,7 @@ namespace Booking.Api
 
             app.UseAuthorization();
 
-            app.UseCors(options => options.WithOrigins("*").AllowAnyMethod());
+            app.UseCors(options => options.WithOrigins(Configuration.GetValue<string>("AllowedHosts")).AllowAnyMethod());
 
             app.UseEndpoints(endpoints =>
             {

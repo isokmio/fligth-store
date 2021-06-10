@@ -25,7 +25,7 @@ namespace Station.Api
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    "Server=tcp:flightstore.database.windows.net,1433;Initial Catalog=FlightServer;Persist Security Info=False;User ID=isokmio;Password=.Mio4heavenly;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+                    Configuration.GetConnectionString("DefaultConnection"),
                     x => x.MigrationsHistoryTable("__EFMigrationHistory", "Station")
                     ));
 
@@ -45,9 +45,9 @@ namespace Station.Api
             app.UseRouting();
 
             app.UseAuthorization();
-
+            
             app.UseCors(
-                options => options.WithOrigins("*").AllowAnyMethod()
+                options => options.WithOrigins(Configuration.GetValue<string>("AllowedHosts")).AllowAnyMethod()
             );
 
             app.UseEndpoints(endpoints =>

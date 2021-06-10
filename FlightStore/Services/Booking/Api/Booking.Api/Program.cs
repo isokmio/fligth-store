@@ -18,6 +18,13 @@ namespace Booking.Api
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((builderContext, config) => 
+                {
+                    IHostEnvironment env = builderContext.HostingEnvironment;
+
+                    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                          .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
