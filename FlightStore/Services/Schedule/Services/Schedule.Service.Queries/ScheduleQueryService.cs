@@ -41,7 +41,7 @@ namespace Schedule.Service.Queries
         public async Task<DataCollection<FlightDto>> GetByFilterAsync(int page, int take, FlightQueryFilterDto filter)
         {
             var filteredFlights = await _context.Flights
-                .Where(x => x.DepartureStation == filter.Departure && x.ArrivalStation == filter.Destination && x.DepartureDate > filter.Date)
+                .Where(x => x.DepartureStation == filter.Departure && x.ArrivalStation == filter.Destination && x.DepartureDate > filter.From)
                 .OrderBy(x => x.DepartureDate)
                 .GetPagedAsync(page, take);
 

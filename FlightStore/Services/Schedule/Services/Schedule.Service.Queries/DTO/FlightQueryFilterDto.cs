@@ -6,6 +6,6 @@ namespace Schedule.Service.Queries.DTO
     {
         public string Departure { get; set; }
         public string Destination { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime From { get; set; }
     }
 }

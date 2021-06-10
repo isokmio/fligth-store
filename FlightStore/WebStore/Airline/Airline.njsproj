@@ -35,6 +35,7 @@
     <None Include="Properties\PublishProfiles\flightstore-isok - Web Deploy.pubxml" />
     <Content Include="public\favicon.ico" />
     <Content Include="public\index.html" />
+    <Content Include="public\loading.gif" />
     <Content Include="src\App.vue" />
     <Content Include="src\components\BookingInfo.vue" />
     <Content Include="src\components\BookingForm.vue" />

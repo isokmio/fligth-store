@@ -46,7 +46,7 @@
                 filter: {
                     departure: "",
                     destination: "",
-                    date: null,
+                    from: null,
                 },
                 show: false
             };

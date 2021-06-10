@@ -3,7 +3,7 @@
         <h1>{{ airline }}</h1>
         <filter-options></filter-options>
         <flight-list></flight-list>
-        <booking-form></booking-form>
+        <booking-form></booking-form>        
     </div>
 </template>
 
