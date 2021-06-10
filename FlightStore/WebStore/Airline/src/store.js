@@ -24,17 +24,21 @@ const base = {
             state.step = step;
         },
         setFlights(state, flights) {
-            state.flights = (!!flights) ? flights : [];
+            state.flights = (flights != null) ? flights : [];
         },
         setFlight(state, flight) {
-            state.book.flight = (!!flight) ? flight : {};
+            state.book.flight = (flight != null) ? flight : {};
         }
     },
     actions: {
         async searchFlights({ commit }, options) {
             if (!options) return;
 
-            axios.post(SCHEDULED_FLIGHTS, JSON.stringify(options))
+            const requestOptions = {
+                headers: { "Content-Type": "application/json" },
+            };
+
+            axios.post(SCHEDULED_FLIGHTS, JSON.stringify(options), requestOptions)
                 .then(response => {
                     let data = response.data;
                     if (data.hasItems) {
@@ -42,13 +46,10 @@ const base = {
                     }
                 });
         },
-        async searchFlights({ commit }, flightId) {
-            if (!flightId) return;
-
-            axios.post(SCHEDULED_FLIGHT.replace("{flightId}", flightId), JSON.stringify(options))
+        async bookFlight({ commit }, flightId) {
+            axios.get(SCHEDULED_FLIGHT.replace("{flightId}", flightId))
                 .then(response => {
-                    alert(response);
-                    commit('setFlight', response);
+                    commit('setFlight', response.data);
                 });
         }
     }
@@ -71,4 +72,5 @@ export default VuexStore({
     state: {},
     getters: {},
     mutations: {},
+    actions: {},
 });

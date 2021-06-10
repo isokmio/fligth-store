@@ -67,13 +67,11 @@
         },
         methods: {            
             search: async function () {
-                alert(this.filter.date);
                 let options = Object.assign(this.filter, { date: this.filter.date + "T00:00:00.000Z" });
 
                 await this.$store.dispatch('searchFlights', options);
             }
         }
-
     };
 </script>
 

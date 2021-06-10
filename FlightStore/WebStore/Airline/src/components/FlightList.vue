@@ -11,10 +11,10 @@
             </thead>
             <tbody>
                 <tr v-for="(flight, index) in flights" :key="index">
-                    <th scope="row">{{flight.DepartureStation}}</th>
-                    <td>{{flight.ArrivalStation}}</td>
-                    <td>{{flight.DepartureDate}}</td>
-                    <td><button type="button" class="btn btn-link" @click="bookFlight(flight.FlightId)">Continuar</button></td>
+                    <th scope="row">{{flight.departureStation}}</th>
+                    <td>{{flight.arrivalStation}}</td>
+                    <td>{{flight.departureDate}}</td>
+                    <td><button type="button" class="btn btn-link" @click="bookFlight(flight.flightId)">Continuar</button></td>
                 </tr>
             </tbody>
         </table>
@@ -36,7 +36,7 @@
         },
         methods: {
             bookFlight: async function (flightId) {
-                await this.$store.dispatch('book', flightId);
+                await this.$store.dispatch('bookFlight', flightId);
 
                 this.$store.commit('setStep', BOOKING);
             }

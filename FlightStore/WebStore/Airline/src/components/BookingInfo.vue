@@ -7,15 +7,19 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
                 <span href="#" class="badge badge-info">Origen</span>
-                {{flight.DepartureStation}}
+                {{flight.departureStation}}
             </li>
             <li class="list-group-item">
                 <span href="#" class="badge badge-info">Destino</span>
-                {{flight.ArrivalStation}}
+                {{flight.arrivalStation}}
             </li>
             <li class="list-group-item">
                 <span href="#" class="badge badge-info">Fecha</span>
-                {{flight.DepartureDate}}
+                {{flight.departureDate}}
+            </li>
+            <li class="list-group-item">
+                <span href="#" class="badge badge-info">Precio</span>
+                {{flight.price}} {{flight.currency}}
             </li>
         </ul>
         <div class="card-body">
@@ -26,13 +30,13 @@
 
 <script>
     import { STAGES } from '../constant';
-    import { mapGetter } from 'vuex';
+    import { mapGetters } from 'vuex';
     const { SEARCHING } = STAGES;
 
     export default {
         name: 'FilterOptions',
         computed: {
-            ...mapGetter(['flight'])
+            ...mapGetters(['flight']),
         },
         methods: {
             changeFlight: function () {
