@@ -1,11 +1,9 @@
 const STAGES = { SEARCHING: 0, BOOKING: 1, CONFIRMING: 2 };
-const URL =
+const SERVICES =
 {
-    SERVICES: {
-        STATIONS: "https://flightstore-station-api.azurewebsites.net/api/stations",
-        SCHEDULE: "https://flightstore-schedule-api.azurewebsites.net/api/values"
-    },
-
+    STATIONS: "https://flightstore-station-api.azurewebsites.net/api/stations",
+    SCHEDULED_FLIGHTS: "https://flightstore-schedule-api.azurewebsites.net/api/values",
+    SCHEDULED_FLIGHT: "https://flightstore-schedule-api.azurewebsites.net/api/values/{flightId}",
 };
 
-export { STAGES, URL };
+export { STAGES, SERVICES };

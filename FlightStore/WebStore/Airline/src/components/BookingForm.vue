@@ -28,9 +28,6 @@
 
     export default {
         name: 'BookingForm',
-        props: {
-            fligth: Object,
-        },
         data: function () {
             return {
                 fullname: "",

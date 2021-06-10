@@ -7,15 +7,15 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
                 <span href="#" class="badge badge-info">Origen</span>
-                {{booking.DepartureStation}}
+                {{flight.DepartureStation}}
             </li>
             <li class="list-group-item">
                 <span href="#" class="badge badge-info">Destino</span>
-                {{booking.ArrivalStation}}
+                {{flight.ArrivalStation}}
             </li>
             <li class="list-group-item">
                 <span href="#" class="badge badge-info">Fecha</span>
-                {{booking.DepartureDate}}
+                {{flight.DepartureDate}}
             </li>
         </ul>
         <div class="card-body">
@@ -26,27 +26,24 @@
 
 <script>
     import { STAGES } from '../constant';
+    import { mapGetter } from 'vuex';
     const { SEARCHING } = STAGES;
 
     export default {
         name: 'FilterOptions',
-        data: function () {
-            return {
-                booking: {}
-            };
-        },
-        created: function () {
-            this.booking = { "DepartureStation": "BOG", "ArrivalStation": "BOG", "DepartureDate": new Date(), "FlightId": 12 };
+        computed: {
+            ...mapGetter(['flight'])
         },
         methods: {
             changeFlight: function () {
+                this.$store.commit('setFlight', {});
+
                 this.$store.commit("setStep", SEARCHING);
             }
         }
     };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
 

@@ -27,11 +27,10 @@
 <script>
     import { mapState } from 'vuex';
     import axios from 'axios';
-    import { STAGES, URL } from '../constant'
+    import { STAGES, SERVICES } from '../constant'
 
     const { SEARCHING } = STAGES;
-    const { SERVICES } = URL;
-    const { STATIONS, SCHEDULE } = SERVICES;
+    const { STATIONS } = SERVICES;
 
     export default {
         name: 'FilterOptions',
@@ -50,8 +49,8 @@
                 show: false
             };
         },
-        mounted: function () {
-            axios.get(STATIONS)
+        mounted: async function () {
+            await axios.get(STATIONS)
                 .then(response => {
                     let data = response.data;
                     if (data.hasItems) {
@@ -67,14 +66,11 @@
             }
         },
         methods: {            
-            search: function () {
+            search: async function () {
                 alert(this.filter.date);
                 let options = Object.assign(this.filter, { date: this.filter.date + "T00:00:00.000Z" });
 
-                axios.post(SCHEDULE, JSON.stringify(options))
-                    .then(response => {
-                        alert(response);
-                    });
+                await this.$store.dispatch('searchFlights', options);
             }
         }
 
