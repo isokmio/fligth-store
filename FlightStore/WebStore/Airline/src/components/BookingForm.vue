@@ -1,23 +1,50 @@
 <template>
     <div class="reservation-form row" v-show="isVisible">
         <booking-info class="col-xs-12 col-md-6"></booking-info>
-        <form @submit.prevent="submit" class="col-xs-12 col-md-6">
-            <h5>Informacion del usuario</h5>
-            <p class="card-text">Complete la informacion para el registro.</p>
-            <div class="form-group">
-                <label>Nombre completo:</label>
-                <input type="text" v-model="fullname" class="form-control" />
+        <div class="card col-xs-12 col-md-6">
+            <div class="card-body">
+                <form @submit.prevent="submit">
+                    <h5>Informacion del usuario</h5>
+                    <p class="card-text">Complete la informacion para el registro.</p>
+                    <div class="form-group">
+                        <label>Nombre completo:</label>
+                        <input type="text"
+                               name="fullname"
+                               v-model="customer.fullname"
+                               class="form-control"
+                               v-validate="'required'" 
+                               :class="{'has-errors': errors.has('fullname')}" />
+
+                        <span v-show="errors.has('fullname')" class="help brand-color">{{ errors.first("fullname") }}</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Numero de contacto:</label>
+                        <input type="text"
+                               name="phone"
+                               class="form-control"
+                               v-model="customer.phone"
+                               v-validate="'required'" 
+                               :class="{'has-errors': errors.has('phone')}" />
+
+                        <span v-show="errors.has('phone')" class="help brand-color">{{ errors.first("phone") }}</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Correo electronico:</label>
+                        <input type="email"
+                               class="form-control"
+                               v-model="customer.email"
+                               v-validate="'required'"
+                               name="email"
+                               :error="errors.first('email')" 
+                               :class="{'has-errors': errors.has('email')}" />
+
+                        <span v-show="errors.has('email')" class="help brand-color">{{ errors.first("email") }}</span>
+                    </div>
+                    <button type="button" class="btn btn-primary" @click="generate">Generar reserva</button>
+                </form>
+
             </div>
-            <div class="form-group">
-                <label>Numero de contacto:</label>
-                <input type="text" class="form-control" v-model="phone" />
-            </div>
-            <div class="form-group">
-                <label>Correo electronico:</label>
-                <input type="email" class="form-control" v-model="email" />
-            </div>
-            <button type="button" class="btn btn-primary">Generar reserva</button>
-        </form>
+        </div>        
     </div>
 </template>
 
@@ -30,9 +57,12 @@
         name: 'BookingForm',
         data: function () {
             return {
-                fullname: "",
-                phone: "",
-                email: ""
+                responseErrors: [],
+                customer: {
+                    fullname: "",
+                    phone: "",
+                    email: ""
+                }                
             };
         },
         components: {
@@ -43,11 +73,32 @@
             isVisible: function () {
                 return this.step == BOOKING;
             }
+        },
+        methods: {
+            generate: async function () {
+                const isValid = await this.$validator.validate();
+
+                if (isValid) {
+                    this.$store.dispatch('createBooking', this.customer);
+                }
+            }
         }
     };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .help {
+        font-size: 0.8em;
+    }
+
+    .brand-color {
+        color: firebrick;
+    }
+
+    .has-errors {
+        border-color: firebrick;
+
+    }
 </style>
 

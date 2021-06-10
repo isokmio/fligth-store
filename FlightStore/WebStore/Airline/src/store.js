@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import { STAGES, SERVICES } from './constant';
 
-const { SCHEDULED_FLIGHTS, SCHEDULED_FLIGHT } = SERVICES;
+const { SCHEDULED_FLIGHTS, SCHEDULED_FLIGHT_BY, BOOKING_CREATE } = SERVICES;
 
 const base = {
     state:
@@ -12,12 +12,10 @@ const base = {
         flights: [],
         book: {
             flight: {},
-            user: {}
         }
     },
     getters: {
         flight: (state) => state.book.flight,
-        user: (state) => state.book.user
     },
     mutations: {
         setStep(state, step) {
@@ -47,9 +45,21 @@ const base = {
                 });
         },
         async bookFlight({ commit }, flightId) {
-            axios.get(SCHEDULED_FLIGHT.replace("{flightId}", flightId))
+            axios.get(SCHEDULED_FLIGHT_BY.replace("{flightId}", flightId))
                 .then(response => {
                     commit('setFlight', response.data);
+                });
+        },
+        async createBooking({ getters }, customer) {
+            let formData = Object.assign(customer, getters.flight);
+
+            const requestOptions = {
+                headers: { "Content-Type": "application/json" },
+            };
+
+            axios.post(BOOKING_CREATE, JSON.stringify(formData), requestOptions)
+                .then(response => {
+                    alert(response);
                 });
         }
     }

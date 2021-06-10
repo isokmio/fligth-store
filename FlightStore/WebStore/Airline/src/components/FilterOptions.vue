@@ -4,12 +4,14 @@
             <div class="form-group col-xs-12 col-md-4">
                 <label>Origen:</label>
                 <select class="form-control" v-model="filter.departure">
+                    <option value="">Seleccione...</option>
                     <option v-for="(from, index) in fromList" :key="index" :value="from.code">{{from.name}}</option>
                 </select>
             </div>
             <div class="form-group col-xs-12 col-md-4">
                 <label>Destino:</label>
                 <select class="form-control" v-model="filter.destination">
+                    <option value="">Seleccione...</option>
                     <option v-for="(to, index) in toList" :key="index" :value="to.code">{{to.name}}</option>
                 </select>
             </div>            
@@ -18,7 +20,7 @@
                 <input type="date" class="form-control" v-model="filter.date" />
             </div>   
             <div class="form-group col-xs-12 col-md-4">
-                <button type="button" class="btn btn-primary" @click="search">Buscar vuelos</button>
+                <button type="button" class="btn btn-primary" @click="search" :disabled="isDisabled">Buscar vuelos</button>
             </div>
         </form>
     </div>
@@ -44,7 +46,7 @@
                 filter: {
                     departure: "",
                     destination: "",
-                    date: new Date,
+                    date: null,
                 },
                 show: false
             };
@@ -63,6 +65,9 @@
             ...mapState(['step']),
             isVisible: function() {
                 return this.step == SEARCHING;
+            },
+            isDisabled: function () {
+                return (!this.filter.departure || !this.filter.destination || !this.filter.date)
             }
         },
         methods: {            

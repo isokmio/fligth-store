@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 namespace Schedule.Api.Controllers
 {
     [ApiController]
-    [Route("/api/values")]
-    public class OtaTestController : ControllerBase
+    [Route("/api/flights")]
+    public class FlightsController : ControllerBase
     {
-        private readonly ILogger<OtaTestController> _logger;
+        private readonly ILogger<FlightsController> _logger;
         private readonly IScheduleQueryService _scheduleQueryService;
 
-        public OtaTestController(ILogger<OtaTestController> logger, IScheduleQueryService scheduleQueryService)
+        public FlightsController(ILogger<FlightsController> logger, IScheduleQueryService scheduleQueryService)
         {
             _logger = logger;
             _scheduleQueryService = scheduleQueryService;
