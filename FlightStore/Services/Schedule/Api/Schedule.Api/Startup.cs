@@ -22,6 +22,8 @@ namespace Schedule.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(
@@ -45,6 +47,10 @@ namespace Schedule.Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(
+                options => options.WithOrigins("*").AllowAnyMethod()
+            );
 
             app.UseEndpoints(endpoints =>
             {
