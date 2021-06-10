@@ -1,5 +1,5 @@
 <template>
-    <div class="fligth-list" v-show="isVisible">
+    <div class="flight-list" v-show="isVisible">
         <table class="table">
             <thead>
                 <tr>
@@ -10,11 +10,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(flight, index) in flightList" :key="index">
-                    <th scope="row">{{flight.DepartureStation}}</th>
-                    <td>{{flight.ArrivalStation}}</td>
-                    <td>{{flight.DepartureDate}}</td>
-                    <td><button type="button" class="btn btn-link" :data-flight-id="flight.FlightId" @click="changeState">Continuar</button></td>
+                <tr v-for="(flight, index) in flights" :key="index">
+                    <th scope="row">{{flight.departureStation}}</th>
+                    <td>{{flight.arrivalStation}}</td>
+                    <td>{{flight.departureDate}}</td>
+                    <td><button type="button" class="btn btn-link" @click="bookFlight(flight.flightId)">Continuar</button></td>
                 </tr>
             </tbody>
         </table>
@@ -28,32 +28,22 @@
 
     export default {
         name: 'FlightList',
-        props: {
-            
-        },
-        data: function () {
-            return {
-                flightList: Object
-            };
-        },
-        created: function () {
-            this.flightList = [{ "DepartureStation": "BOG", "ArrivalStation": "BOG", "DepartureDate": new Date(), "FlightId": 12 }];
-        },
         computed: {
-            ...mapState(['step']),
+            ...mapState(['step', 'flights']),
             isVisible: function () {
                 return this.step == SEARCHING;
             }
         },
         methods: {
-            changeState: function () {
+            bookFlight: async function (flightId) {
+                await this.$store.dispatch('bookFlight', flightId);
+
                 this.$store.commit('setStep', BOOKING);
             }
         }
     };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
 

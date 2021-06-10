@@ -21,10 +21,11 @@ namespace Station.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddCors();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    "Server=localhost; Database=FlightStore; Trusted_Connection=True;",
+                    "Server=tcp:flightstore.database.windows.net,1433;Initial Catalog=FlightServer;Persist Security Info=False;User ID=isokmio;Password=.Mio4heavenly;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
                     x => x.MigrationsHistoryTable("__EFMigrationHistory", "Station")
                     ));
 
@@ -44,6 +45,10 @@ namespace Station.Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(
+                options => options.WithOrigins("*").AllowAnyMethod()
+            );
 
             app.UseEndpoints(endpoints =>
             {
