@@ -50,5 +50,11 @@ namespace Schedule.Api.Controllers
             return await _scheduleQueryService.GetAsync(id);
         }
 
+        [HttpGet("fn/{flightNumber}")]
+        public async Task<FlightDto> GetByFlightNumber(string flightNumber)
+        {
+            return await _scheduleQueryService.GetByFlightNumberAsync(flightNumber);
+        }
+
     }
 }

@@ -20,7 +20,8 @@ namespace Booking.Persistence.Database.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FlightId = table.Column<int>(type: "int", nullable: false),
-                    FligthNumber = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    NumberFlight = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReservationCode = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -34,10 +35,10 @@ namespace Booking.Persistence.Database.Migrations
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Books_FligthNumber",
+                name: "IX_Books_ReservationCode",
                 schema: "Booking",
                 table: "Books",
-                column: "FligthNumber");
+                column: "ReservationCode");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

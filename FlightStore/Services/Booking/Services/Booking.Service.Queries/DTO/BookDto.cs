@@ -11,6 +11,7 @@ namespace Booking.Service.Queries.DTO
         public string Email { get; set; }
         public string Phone { get; set; }
         public int FlightId { get; set; }
-        public string FligthNumber { get; set; }
+        public string NumberFlight { get; set; }
+        public string ReservationCode { get; set; }        
     }
 }

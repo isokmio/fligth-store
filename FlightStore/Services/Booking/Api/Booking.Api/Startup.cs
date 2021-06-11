@@ -25,7 +25,7 @@ namespace Booking.Api
         {
 
             services.AddDbContext<ApplicationDbContext>(options => {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsHistoryTable("__EFMigrationsHistory", "Booking"));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsHistoryTable("__EFMigrationHistory", "Booking"));
             });
 
             services.AddTransient<IBookingQueryService, BookingQueryService>();

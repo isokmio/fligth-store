@@ -10,5 +10,6 @@ namespace Schedule.Service.Queries.DTO
         public DateTime DepartureDate { get; set; }
         public decimal Price { get; set; }
         public string Currency { get; set; }
+        public string FlightNumber { get; set; }
     }
 }

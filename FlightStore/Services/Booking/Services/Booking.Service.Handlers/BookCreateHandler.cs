@@ -2,6 +2,7 @@
 using Booking.Persistence.Database;
 using Booking.Service.Handlers.Commands;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Service.Common.RandomEx;
 using System;
 using System.Threading;
@@ -21,18 +22,20 @@ namespace Booking.Service.Handlers
         public async Task Handle(CreateBookCommand command, CancellationToken cancellationToken)
         {
             Random rand = new Random();
-            string fligthNumber = rand.NextString(6);
-
-            await _context.AddAsync(new Book
+            string code = rand.NextString(10);
+            var book = new Book
             {
                 FullName = command.FullName,
                 Email = command.Email,
                 Phone = command.Phone,
                 FlightId = command.FlightId,
-                FligthNumber = fligthNumber,
-            });
+                ReservationCode = code,
+            };
+
+            await _context.Books.AddAsync(book);
 
             await _context.SaveChangesAsync();
+
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Schedule.Persistence.Database.Configuration
 
     public static class CurrencyCode
     {
-        public static string Colombia = "$";
+        public static string Colombia = "COP";
     }
 
     public class ScheduleFlightConfiguration
@@ -29,28 +29,31 @@ namespace Schedule.Persistence.Database.Configuration
             List <Flight> flights = new List<Flight>();
             Random rand = new Random();
             DateTime basetime = DateTime.Now;
-
-            for (int i = 0; i < AirportCodes.Count; i++)
+            for(int k=0; k < 30; k++)
             {
-                for (int j = 0; j < AirportCodes.Count; j++)
+                DateTime dayOfMonth = basetime.AddDays(k);
+                for (int i = 0; i < AirportCodes.Count; i++)
                 {
-                    if (i != j)
+                    for (int j = 0; j < AirportCodes.Count; j++)
                     {
-                        int index = (i * AirportCodes.Count) + j;
-                        DateTime departureDate = basetime.AddHours(index);
-
-                        flights.Add(new Flight
+                        if (i != j)
                         {
-                            FlightId = index,
-                            DepartureStation = AirportCodes[i],
-                            ArrivalStation = AirportCodes[j],
-                            DepartureDate = departureDate,
-                            Price = rand.Next(200, 1000),
-                            Currency = CurrencyCode.Colombia
-                        });
+                            int index = (k * AirportCodes.Count * AirportCodes.Count) + (i * AirportCodes.Count) + j;
+                            DateTime departureDate = dayOfMonth.AddHours(index);
+
+                            flights.Add(new Flight
+                            {
+                                FlightId = index,
+                                DepartureStation = AirportCodes[i],
+                                ArrivalStation = AirportCodes[j],
+                                DepartureDate = departureDate,
+                                Price = rand.Next(50000, 1000000),
+                                Currency = CurrencyCode.Colombia
+                            });
+                        }
                     }
                 }
-            }
+            }            
 
             builder.HasData(flights);
         }
@@ -67,12 +70,12 @@ namespace Schedule.Persistence.Database.Configuration
             List<Transport> transports = new List<Transport>();
             Random rand = new Random();
 
-            for (int i = 1; i <= 400; i++) 
+            for (int i = 1; i <= 6000; i++) 
             {
                 transports.Add(new Transport
                 {
                     TransportId = i,
-                    FlightId = rand.Next(1, 100),
+                    FlightId = rand.Next(1, 3000),
                     FlightNumber = rand.NextString(6)
                 });
             }

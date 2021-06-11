@@ -33,23 +33,26 @@ namespace Booking.Persistence.Database.Migrations
                     b.Property<int>("FlightId")
                         .HasColumnType("int");
 
-                    b.Property<string>("FligthNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("FullName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumberFlight")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ReservationCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("BookId");
 
                     b.HasIndex("BookId");
 
-                    b.HasIndex("FligthNumber");
+                    b.HasIndex("ReservationCode");
 
                     b.ToTable("Books");
                 });

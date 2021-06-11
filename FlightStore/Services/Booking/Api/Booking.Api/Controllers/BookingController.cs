@@ -30,11 +30,11 @@ namespace Booking.Api.Controllers
         [HttpGet("token/{flightNumber}")]
         public async Task<BookDto> GetByFlightNumber(string flightNumber)
         {
-            return await _bookingQueryService.GetBookByFlightNumder(flightNumber);
+            return await _bookingQueryService.GetBookByReservationCode(flightNumber);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateBookCommand command)
+        public async Task<BookDto> Create(CreateBookCommand command)
         {
             // Verify flight availability
 
@@ -43,7 +43,7 @@ namespace Booking.Api.Controllers
             // Create book entry
             await _mediator.Publish(command);
 
-            return Ok();
+            return await _bookingQueryService.GetBook(command.NumberFlight, command.Email);
         }
     }
 }

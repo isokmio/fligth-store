@@ -8,9 +8,9 @@ namespace Booking.Persistence.Database.Configuration
         public BookConfiguration(EntityTypeBuilder<Book> builder)
         {
             builder.HasIndex(x => x.BookId);
-            builder.HasIndex(x => x.FligthNumber);
+            builder.HasIndex(x => x.ReservationCode);
 
-            builder.Property(x => x.FligthNumber).IsRequired();
+            builder.Property(x => x.ReservationCode).IsRequired();
             builder.Property(x => x.FullName).IsRequired();
             builder.Property(x => x.Email).IsRequired();
             builder.Property(x => x.Phone).IsRequired();
