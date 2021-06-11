@@ -3,7 +3,8 @@
         <h1>{{ airline }}</h1>
         <filter-options></filter-options>
         <flight-list></flight-list>
-        <booking-form></booking-form>        
+        <booking-form></booking-form>
+        <confirmation-display></confirmation-display>
     </div>
 </template>
 
@@ -22,6 +23,7 @@
             FilterOptions: () => import(/* webpackChunkName: "FilterOptions" */ './FilterOptions.vue'),
             FlightList: () => import(/* webpackChunkName: "FlightList" */ './FlightList.vue'),
             BookingForm: () => import(/* webpackChunkName: "BookingForm" */ './BookingForm.vue'),
+            ConfirmationDisplay: () => import(/* webpackChunkName: "ConfirmationDisplay" */ './ConfirmationDisplay.vue'),
         },
         methods: {
 

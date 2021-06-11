@@ -1,6 +1,6 @@
 <template>
     <div class="reservation-form row" v-show="isVisible">
-        <booking-info class="col-xs-12 col-md-6"></booking-info>
+        <flight-info class="col-xs-12 col-md-6"></flight-info>
         <div class="card col-xs-12 col-md-6">
             <div class="card-body">
                 <form @submit.prevent="submit">
@@ -12,7 +12,7 @@
                                name="fullname"
                                v-model="customer.fullname"
                                class="form-control"
-                               v-validate="'required'" 
+                               v-validate="'required|alpha'" 
                                :class="{'has-errors': errors.has('fullname')}" />
 
                         <span v-show="errors.has('fullname')" class="help brand-color">{{ errors.first("fullname") }}</span>
@@ -23,7 +23,7 @@
                                name="phone"
                                class="form-control"
                                v-model="customer.phone"
-                               v-validate="'required'" 
+                               v-validate="'required|numeric'" 
                                :class="{'has-errors': errors.has('phone')}" />
 
                         <span v-show="errors.has('phone')" class="help brand-color">{{ errors.first("phone") }}</span>
@@ -40,9 +40,11 @@
 
                         <span v-show="errors.has('email')" class="help brand-color">{{ errors.first("email") }}</span>
                     </div>
-                    <button type="button" class="btn btn-primary" @click="generate">Generar reserva</button>
+                    <button type="button" class="btn btn-primary" @click="generate" :disabled="isDisabled">
+                        <img v-show="loading" height="30" src="../../public/loading.gif" />
+                        Generar reserva
+                    </button>
                 </form>
-
             </div>
         </div>        
     </div>
@@ -66,15 +68,30 @@
             };
         },
         components: {
-            BookingInfo: () => import(/* webpackChunkName: "BookingInfo" */ './BookingInfo.vue'),
+            FlightInfo: () => import(/* webpackChunkName: "FlightInfo" */ './FlightInfo.vue'),
         },
         computed: {
-            ...mapState(['step']),
+            ...mapState(['step', 'loading']),
             isVisible: function () {
                 return this.step == BOOKING;
+            },
+            isDisabled: function () {
+                return this.loading;
             }
         },
+        watch: {
+            step(before) {
+                if (before == BOOKING) {
+                    this.$validator.reset();
+
+                    this.clean();
+                }
+            },
+        },
         methods: {
+            clean: function () {
+                this.customer = { fullname: "", phone: "", email: "" };
+            },
             generate: async function () {
                 const isValid = await this.$validator.validate();
 

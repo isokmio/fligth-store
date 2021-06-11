@@ -1,5 +1,5 @@
 <template>
-    <div class="booking-info card col-xs-12 col-md-6">
+    <div class="flight-info card col-xs-12 col-md-6">
         <div class="card-body">
             <h5 class="card-title">Informacion del vuelo</h5>
             <p class="card-text">Su reserva se realizara para el siguiente vuelo.</p>            
@@ -15,11 +15,15 @@
             </li>
             <li class="list-group-item">
                 <span href="#" class="badge badge-info">Fecha</span>
-                {{flight.departureDate}}
+                {{flight.departureDate | formatDate }}
             </li>
             <li class="list-group-item">
                 <span href="#" class="badge badge-info">Precio</span>
-                {{flight.price}} {{flight.currency}}
+                {{flight.currency}} {{flight.price | formatCurrency}}
+            </li>
+            <li class="list-group-item">
+                <span href="#" class="badge badge-info">Numero de vuelo</span>
+                {{flight.flightNumber}}
             </li>
         </ul>
         <div class="card-body">
@@ -34,7 +38,7 @@
     const { SEARCHING } = STAGES;
 
     export default {
-        name: 'FilterOptions',
+        name: 'FlightInfo',
         computed: {
             ...mapGetters(['flight']),
         },

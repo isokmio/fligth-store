@@ -37,7 +37,8 @@
     <Content Include="public\index.html" />
     <Content Include="public\loading.gif" />
     <Content Include="src\App.vue" />
-    <Content Include="src\components\BookingInfo.vue" />
+    <Content Include="src\components\ConfirmationDisplay.vue" />
+    <Content Include="src\components\FlightInfo.vue" />
     <Content Include="src\components\BookingForm.vue" />
     <Content Include="src\components\FlightList.vue" />
     <Content Include="src\components\FilterOptions.vue" />

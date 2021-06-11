@@ -17,7 +17,7 @@
             </div>            
             <div class="form-group col-xs-12 col-md-4">
                 <label>Fecha:</label>
-                <input type="date" class="form-control" v-model="filter.date" />
+                <input type="date" class="form-control" v-model="filter.from" />
             </div>   
             <div class="form-group col-xs-12 col-md-4">
                 <button type="button" class="btn btn-primary" @click="search" :disabled="isDisabled">Buscar vuelos</button>
@@ -67,14 +67,19 @@
                 return this.step == SEARCHING;
             },
             isDisabled: function () {
-                return (!this.filter.departure || !this.filter.destination || !this.filter.date)
+                return (!this.filter.departure || !this.filter.destination || !this.filter.from)
             }
         },
-        methods: {            
+        methods: {
+            cleanFilter: function () {
+                this.filter = { departure: "", destination: "", from: null };
+            },
             search: async function () {
-                let options = Object.assign(this.filter, { date: this.filter.date + "T00:00:00.000Z" });
+                let options = Object.assign(this.filter, { from: this.filter.from + "T00:00:00.000Z" });
 
                 await this.$store.dispatch('searchFlights', options);
+
+                this.cleanFilter();
             }
         }
     };

@@ -6,6 +6,7 @@
                     <th scope="col">Origen</th>
                     <th scope="col">Destino</th>
                     <th scope="col">Fecha</th>
+                    <th scope="col">Numero de vuelo</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -13,11 +14,14 @@
                 <tr v-for="(flight, index) in flights" :key="index">
                     <th scope="row">{{flight.departureStation}}</th>
                     <td>{{flight.arrivalStation}}</td>
-                    <td>{{flight.departureDate}}</td>
-                    <td><button type="button" class="btn btn-link" @click="bookFlight(flight.flightId)">Continuar</button></td>
+                    <td>{{flight.departureDate | formatDate}}</td>
+                    <td>{{flight.flightNumber}}</td>
+                    <td><button type="button" class="btn btn-link" @click="bookFlight(flight.flightNumber)">Continuar</button></td>
                 </tr>
             </tbody>
         </table>
+        <div class="center" v-show="loading"><img height="60" src="../../public/loading.gif" /></div>
+        
     </div>    
 </template>
 
@@ -29,14 +33,14 @@
     export default {
         name: 'FlightList',
         computed: {
-            ...mapState(['step', 'flights']),
+            ...mapState(['step', 'flights', 'loading']),
             isVisible: function () {
                 return this.step == SEARCHING;
             }
         },
         methods: {
-            bookFlight: async function (flightId) {
-                await this.$store.dispatch('bookFlight', flightId);
+            bookFlight: async function (flightNumber) {
+                await this.$store.dispatch('bookFlighByFn', flightNumber);
 
                 this.$store.commit('setStep', BOOKING);
             }
@@ -45,5 +49,8 @@
 </script>
 
 <style scoped>
+    .center {
+        text-align: center;
+    }
 </style>
 
